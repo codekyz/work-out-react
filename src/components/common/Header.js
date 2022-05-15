@@ -8,7 +8,8 @@ const Wrap = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  h2 {
+  margin-top: 10px;
+  h1 {
     color: #27ae60;
   }
 `;
@@ -16,7 +17,7 @@ const Wrap = styled.header`
 const Header = () => {
   return (
     <Wrap>
-      <h2>Let's Work Out!</h2>
+      <h1>Let's Work Out!</h1>
       <FontAwesomeIcon icon={faBars} size="2x" />
     </Wrap>
   );

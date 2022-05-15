@@ -1,21 +1,22 @@
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "./components/common/NavigationBar";
 import styled from "styled-components";
-import Header from "./components/Header";
+import Header from "./components/common/Header";
 import { Outlet } from "react-router-dom";
 
 const Wrap = styled.div`
-  width: 100vw;
-  height: 90vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Main = styled.main`
-  background-color: red;
   width: 500px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 150px;
 `;
 
 const Layout = () => {
