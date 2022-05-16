@@ -13,10 +13,15 @@ const Wrap = styled.div`
 
 const Main = styled.main`
   width: 500px;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 150px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
 const Layout = () => {
