@@ -41,7 +41,7 @@ const ExerciseSearchBar = () => {
 
   useEffect(() => {
     setSearchResult();
-  }, []);
+  }, [searchResult]);
 
   return (
     <>
