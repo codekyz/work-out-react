@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getData } from "../store/exercise/exerciseSlice";
 import { getExerciseData } from "../api/api";
 import ExerciseCard from "../components/Home/ExerciseCard";
 import ExerciseSearchBar from "../components/Home/ExerciseSearchBar";
 
 const Home = () => {
-  const [exerciseData, setExerciseData] = useState([]);
-  const promise = getExerciseData();
-  const getData = () => promise.then((data) => setExerciseData(data.data));
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData();
-  }, []);
+    const promise = getExerciseData();
+    promise.then((data) => dispatch(getData(data.data)));
+  }, [dispatch]);
+
+  const exerciseData = useSelector((state) => state.exercise);
 
   return (
     <>
