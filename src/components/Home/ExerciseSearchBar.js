@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { getExerciseFullData } from "../../api/api";
-import ExerciseCard from "./ExerciseCard";
+import { search, setSearchValue } from "../../store/exercise/exerciseSlice";
 
 const SearchForm = styled.form`
   width: 90%;
@@ -12,51 +13,36 @@ const SearchForm = styled.form`
 `;
 
 const SearchInput = styled.input`
+  width: 450px;
   padding: 10px 15px;
   flex-grow: 1;
   border-radius: 20px;
 `;
 
 const ExerciseSearchBar = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResult, setSearchResult] = useState();
-  const [exerciseFullData, setExerciseFullData] = useState();
-  const promise = getExerciseFullData();
-  const getFullData = () =>
-    promise.then((data) => setExerciseFullData(data.data));
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
 
   const onExerciseSearch = (event) => {
     event.preventDefault();
-    getFullData();
-    const re = new RegExp(".*" + searchValue + ".*", "g");
-    setSearchResult(
-      exerciseFullData.filter((exercise) => exercise.운동명.match(re))
-    );
-    setSearchValue("");
+    dispatch(setSearchValue(value));
+    const promise = getExerciseFullData();
+    promise.then((data) => dispatch(search(data.data)));
   };
-
   const onSearchValue = (event) => {
-    setSearchValue(event.target.value);
+    setValue(event.target.value);
   };
-
-  useEffect(() => {
-    setSearchResult();
-  }, [searchResult]);
 
   return (
     <>
-      {searchResult ? (
-        <ExerciseCard props={searchResult} />
-      ) : (
-        <SearchForm onSubmit={(event) => onExerciseSearch(event)}>
-          <SearchInput
-            value={searchValue}
-            onChange={(event) => onSearchValue(event)}
-            type="text"
-            placeholder="운동을 검색하세요"
-          />
-        </SearchForm>
-      )}
+      <SearchForm onSubmit={(event) => onExerciseSearch(event)}>
+        <SearchInput
+          value={value}
+          onChange={(event) => onSearchValue(event)}
+          type="text"
+          placeholder="운동을 검색하세요"
+        />
+      </SearchForm>
     </>
   );
 };

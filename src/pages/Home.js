@@ -13,14 +13,14 @@ const Home = () => {
     promise.then((data) => dispatch(getData(data.data)));
   }, [dispatch]);
 
-  const exerciseData = useSelector((state) => state.exercise);
+  const exerciseData = useSelector((state) => state.exercise.data);
 
   return (
     <>
       <h3>운동목록</h3>
       <ExerciseSearchBar />
       {exerciseData.map((item) => (
-        <ExerciseCard key={item.운동명} props={item} />
+        <ExerciseCard key={item.운동명 + item["MET 계수"]} props={item} />
       ))}
     </>
   );
