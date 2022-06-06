@@ -1,5 +1,17 @@
+import { useSelector } from "react-redux";
+import Post from "../components/community/Post";
+
 const Community = () => {
-  return <div>커뮤니티입니다</div>;
+  const postData = useSelector((state) => state.post.post);
+
+  return (
+    <>
+      <h3>커뮤니티</h3>
+      {postData.map((post) => (
+        <Post key={post.number} props={post} />
+      ))}
+    </>
+  );
 };
 
 export default Community;
